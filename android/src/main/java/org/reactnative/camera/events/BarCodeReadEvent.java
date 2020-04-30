@@ -63,13 +63,22 @@ public class BarCodeReadEvent extends Event<BarCodeReadEvent> {
     rctEventEmitter.receiveEvent(getViewTag(), getEventName(), serializeEventData());
   }
 
+  private String encodeUTF16(String str){
+    char[] chars = new char[str.length()];
+    for(int i = 0; i < str.length(); i++){
+      chars[i] = (char) (str.codePointAt(i) > 0 ? str.codePointAt(i) : 32)
+    }
+    return String.valueOf(chars);
+  }
+
   private WritableMap serializeEventData() {
     WritableMap event = Arguments.createMap();
     WritableMap eventOrigin = Arguments.createMap();
-    String base64 = Base64.encodeToString(mBarCode.getText().getBytes(), 0);
+    //String base64 = Base64.encodeToString(mBarCode.getText().getBytes(), 0);
 
     event.putInt("target", getViewTag());
-    event.putString("data", base64);
+    //event.putString("data", base64);
+    event.putString("data", encodeUTF16(mBarCode.getText()));
 
     byte[] rawBytes = mBarCode.getRawBytes();
     if (rawBytes != null && rawBytes.length > 0) {
