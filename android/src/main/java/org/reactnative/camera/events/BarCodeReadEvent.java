@@ -66,7 +66,7 @@ public class BarCodeReadEvent extends Event<BarCodeReadEvent> {
   private String encodeUTF16(String str){
     char[] chars = new char[str.length()];
     for(int i = 0; i < str.length(); i++){
-      chars[i] = (char) (str.codePointAt(i) > 0 ? str.codePointAt(i) : 32)
+      chars[i] = (char) (str.codePointAt(i) > 0 ? str.codePointAt(i) : 32);
     }
     return String.valueOf(chars);
   }
