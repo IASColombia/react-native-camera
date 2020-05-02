@@ -10,7 +10,6 @@ import com.facebook.react.uimanager.events.Event;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.google.zxing.Result;
 import com.google.zxing.ResultPoint;
-import android.util.Base64;
 
 import java.util.Formatter;
 
@@ -74,10 +73,8 @@ public class BarCodeReadEvent extends Event<BarCodeReadEvent> {
   private WritableMap serializeEventData() {
     WritableMap event = Arguments.createMap();
     WritableMap eventOrigin = Arguments.createMap();
-    //String base64 = Base64.encodeToString(mBarCode.getText().getBytes(), 0);
 
     event.putInt("target", getViewTag());
-    //event.putString("data", base64);
     event.putString("data", encodeUTF16(mBarCode.getText()));
 
     byte[] rawBytes = mBarCode.getRawBytes();
